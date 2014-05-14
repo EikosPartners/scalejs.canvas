@@ -1,0 +1,7 @@
+﻿({
+	mainConfigFile: '../config.js',
+    include: 'scalejs.canvas',
+    exclude: [
+        'scalejs!core'
+    ]
+})
