@@ -47,28 +47,40 @@ define([
             var firstObj = [],
                 object,
                 i, j;
-            // Get first object with the class that matches objectClassName, from each object in objects:
-            for (i = 0; i < this.objects.length; i++) {
-                object = this.objects[i];
-                // Check to see if object has children:
-                if (object.children !== undefined && object.children.length > 0) {
-                    // Look for first child with the specified class:
-                    for (j = 0; j < object.children.length; j++) {
-                        if (object.children[j].className === objectClassName) {
-                            firstObj.push(object.children[j]);
-                            break;
+
+            if (typeof objectClassName === 'string') {
+                // Get first object with the class that matches objectClassName, from each object in objects:
+                for (i = 0; i < this.objects.length; i++) {
+                    object = this.objects[i];
+                    // Check to see if object has children:
+                    if (object.children !== undefined && object.children.length > 0) {
+                        // Look for first child with the specified class:
+                        for (j = 0; j < object.children.length; j++) {
+                            if (object.children[j].className === objectClassName) {
+                                firstObj.push(object.children[j]);
+                                break;
+                            }
                         }
                     }
                 }
+                // Return a new selector with the first matching class in each object:
+                return new Selector({
+                    isTransition: this.isTransition,
+                    durationTime: this.durationTime,
+                    easeFunc: this.easeFunc,
+                    object: firstObj.length > 0 ? firstObj[0].parent : (this.objects.length > 0 ? this.objects[0] : this.object), //Should rework this to accept more than one parent...
+                    objects: firstObj
+                });
+            } else { // if they passed in the actual reference
+                return new Selector({
+                    isTransition: this.isTransition,
+                    durationTime: this.durationTime,
+                    easeFunc: this.easeFunc,
+                    object: objectClassName,
+                    objects: [objectClassName]
+                });
             }
-            // Return a new selector with the first matching class in each object:
-            return new Selector({
-                isTransition: this.isTransition,
-                durationTime: this.durationTime,
-                easeFunc: this.easeFunc,
-                object: firstObj.length > 0 ? firstObj[0].parent : (this.objects.length > 0 ? this.objects[0] : this.object), //Should rework this to accept more than one parent...
-                objects: firstObj
-            });
+
         };
 
         Selector.prototype.selectAll = function (objectClassName) {
