@@ -59,6 +59,35 @@ define([
                 canvasObj.context.arc(this.offset.left, this.offset.top, this.radius, this.startAngle - deg90InRad, this.endAngle - deg90InRad);
                 canvasObj.context.stroke();
                 //canvasObj.context.restore();
+
+
+                // Highlighting code
+                if (this.highlight) {
+                    canvasObj.context.strokeStyle = '#FFFFFF';
+                    canvasObj.context.lineWidth = 6;
+                    var oldAlpha = canvasObj.context.globalAlpha;
+                    canvasObj.context.globalAlpha = this.highlight;
+
+                    if ((this.startAngle !== 0) && (this.startAngle !== Math.PI * 2)) { // if the arc is less than 360 degre
+                        canvasObj.context.beginPath();
+                        canvasObj.context.arc(this.offset.left, this.offset.top, (this.outerRadius - 3 * (1 - (this.highlight * 0.2))), this.startAngle - deg90InRad, this.endAngle - deg90InRad, false);
+                        canvasObj.context.arc(this.offset.left, this.offset.top, this.innerRadius + 3, this.endAngle - deg90InRad, this.startAngle - deg90InRad, true);
+                        canvasObj.context.arc(this.offset.left, this.offset.top, (this.outerRadius - 3 * (1 - (this.highlight * 0.2))), this.startAngle - deg90InRad, this.endAngle - deg90InRad, false);
+                        canvasObj.context.stroke();
+                    } else {
+                        canvasObj.context.beginPath();
+                        canvasObj.context.arc(this.offset.left, this.offset.top, this.outerRadius - 3, this.startAngle - deg90InRad, this.endAngle - deg90InRad, false);
+                        canvasObj.context.stroke();
+                        if (this.innerRadius !== 0) {
+                            canvasObj.context.beginPath();
+                            canvasObj.context.arc(this.offset.left, this.offset.top, this.innerRadius + 3, this.endAngle - deg90InRad, this.startAngle - deg90InRad, true);
+                            canvasObj.context.stroke();
+                        }
+
+                    }
+                    canvasObj.context.globalAlpha = oldAlpha;
+                }
+
             }
         };
 
