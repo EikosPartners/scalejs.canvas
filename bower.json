@@ -1,0 +1,30 @@
+{
+  "name": "scalejs.canvas",
+  "main": "dist/scalejs.canvas.js",
+  "version": "0.0.0",
+  "homepage": "https://github.com/lisovin/scalejs.canvas",
+  "authors": [
+    "Peter Lisovin <peter@lisovin.com>"
+  ],
+  "description": "Canvas API for scalejs app",
+  "keywords": [
+    "scalejs",
+    "canvas"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "scalejs": "lisovin/scalejs#~0.4.0",
+    "hammer.js": "~2.0.4",
+    "knockout": "~3.3.0"
+  },
+  "devDependencies": {
+    "requirejs": "latest"
+  }
+}
