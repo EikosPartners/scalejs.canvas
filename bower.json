@@ -1,10 +1,10 @@
 {
   "name": "scalejs.canvas",
   "main": "dist/scalejs.canvas.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/EikosPartners/scalejs.canvas",
   "authors": [
-    "Peter Lisovin <peter@lisovin.com>"
+    "David Lattimore-Gay <david.lattimoregay@gmail.com>"
   ],
   "description": "Canvas API for scalejs app",
   "keywords": [
