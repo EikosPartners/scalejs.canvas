@@ -962,22 +962,26 @@ define('scalejs.canvas/canvas',[
 
         function touchEventHandler(event) {
             // Ignore event with no gesture:
+            
+            /*
             if (!event.gesture) {
                 return;
             }
             event.gesture.preventDefault();
-
+            */
+            
             // Ignore events with more than one touch.
-            if (event.gesture.touches.length === 1) {
+            //if (event.gesture.touches.length === 1) {
                 // Calculate offset from target's top-left corner:
-                var touch = event.gesture.touches[0],       // Get touch location on page.
-                    display = touch.target.style.display,   // Save display property.
+                var touch = event.pointers[0],       // Get touch location on page.
+                    display = event.target.style.display,   // Save display property.
                     pagePos;                                // Get target position on page.
-                touch.target.style.display = "";    // Make visible
-                pagePos = touch.target.getBoundingClientRect(); // Get visible coords.
-                touch.target.style.display = display;   // Restore display property.
-                event.offsetX = touch.pageX - pagePos.left;
-                event.offsetY = touch.pageY - pagePos.top;
+                    
+                event.target.style.display = "";    // Make visible
+                pagePos = event.target.getBoundingClientRect(); // Get visible coords.
+                event.target.style.display = display;   // Restore display property.
+                event.offsetX = touch.clientX - pagePos.left;
+                event.offsetY = touch.clientY - pagePos.top;
                 event.name = "on" + event.type;
 
                 // Loop through every child object on canvas and check if they have been clicked:
@@ -988,7 +992,7 @@ define('scalejs.canvas/canvas',[
                         canvasObj.children[i].touchEventHandler(event.offsetX, event.offsetY, event);
                     }
                 }
-            }
+            //}
         }
 
         var hammerObj = hammer(canvasObj.element, {
